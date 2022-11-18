@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Transaction = sequelize.define("transactions", {
+    const Transaction = sequelize.define("transaction", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -22,11 +22,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ENUM("Paid", "Transmitted", "Payable", "Cancelled"),
             allowNull: false,
         },
-        pays_origine: {
+        emetteur: {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-        pays_destination: {
+        recepteur: {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
