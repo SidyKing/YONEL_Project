@@ -22,22 +22,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ENUM("Paid", "Transmitted", "Payable", "Cancelled"),
             allowNull: false,
         },
-        emetteur: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
-        recepteur: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
-        devise_origine: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
-        devise_destination: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
 
     });
     return Transaction;

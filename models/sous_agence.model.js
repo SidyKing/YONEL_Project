@@ -3,7 +3,8 @@ module.exports = (sequelize, Sequelize) => {
         code: {
             type: Sequelize.INTEGER,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         nom: {
             type: Sequelize.STRING,
@@ -11,14 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         adresse: {
             type: Sequelize.STRING,
-            allowNull: false
-        },
-        city: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        country: {
-            type: Sequelize.INTEGER,
             allowNull: false
         },
         telephone: {

@@ -3,7 +3,8 @@ module.exports = (sequelize, Sequelize) => {
         code: {
             type: Sequelize.INTEGER,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         nom: {
             type: Sequelize.STRING,
@@ -14,4 +15,5 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         }
     })
+    return Agence;
 }
