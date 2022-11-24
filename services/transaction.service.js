@@ -13,7 +13,11 @@ module.exports = {
     },
 
     getAllTransaction(req, res) {
-        Transaction.findAll()
+        Transaction.findAll({
+            include: [{
+                all: true, nested: true
+            }]
+        })
             .then(Transaction => {
                 res.status(200).json(Transaction)
             })
@@ -24,7 +28,12 @@ module.exports = {
 
     getTransactionById(req, res) {
         const idTransaction = req.params.id;
-        Transaction.findOne({ where: { id: idTransaction } })
+        Transaction.findOne({
+            include: [{
+                all: true, nested: true
+            }],
+            where: { id: idTransaction }
+        })
             .then(Transaction => {
                 res.status(200).json(Transaction)
             })

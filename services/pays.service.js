@@ -12,7 +12,7 @@ module.exports = {
     },
 
     getAllPays(req, res) {
-        Pays.findAll()
+        Pays.findAll({})
             .then(Pays => {
                 res.status(200).json(Pays)
             })

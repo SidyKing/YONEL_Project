@@ -1,5 +1,6 @@
 const db = require("./../models");
 const Agence = db.agence;
+const SousAgence = db.sousAgence;
 module.exports = {
 
     createAgence(req, res) {

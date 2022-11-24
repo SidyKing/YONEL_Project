@@ -1,5 +1,7 @@
+const { agence } = require("./../models");
 const db = require("./../models");
 const Balance = db.balance;
+const Agence = db.agence;
 module.exports = {
 
     createBalance(req, res) {
@@ -13,7 +15,11 @@ module.exports = {
     },
 
     getAllBalance(req, res) {
-        Balance.findAll()
+        Balance.findAll({
+            include: [{
+                all: true, nested: true
+            }]
+        })
             .then(Balance => {
                 res.status(200).json(Balance)
             })
@@ -24,7 +30,12 @@ module.exports = {
 
     getBalanceById(req, res) {
         const idBalance = req.params.id;
-        Balance.findOne({ where: { id: idBalance } })
+        Balance.findOne({
+            include: [{
+                all: true, nested: true
+            }],
+            where: { id: idBalance }
+        })
             .then(Balance => {
                 res.status(200).json(Balance)
             })

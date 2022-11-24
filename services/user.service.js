@@ -4,17 +4,17 @@ const jwt = require('../providers/jwt')
 const bcrypt = require("bcrypt");
 module.exports = {
 
-    login(req, res) {
+    async login(req, res) {
         User.findOne({
             where: {
                 login: req.body.login
             }
         })
-            .then(user => {
+            .then(async user => {
                 if (!user) {
                     return res.status(404).send({ message: "User Not found." });
                 }
-                var passwordIsValid = bcrypt.compare(
+                var passwordIsValid = await bcrypt.compare(
                     req.body.password,
                     user.password
                 );
@@ -24,12 +24,15 @@ module.exports = {
                         message: "Invalid Password!"
                     });
                 }
-                User.findOne({ where: { id: user.id } }, (err, user) => {
-                    if (err) { }
-                    const payload = { key: user.key, password: user.password, login: user.login }
-                    const result = jwt.sign(payload);
-                    return res.send(result);
-                })
+                User.findOne({ where: { id: user.id } })
+                    .then(user => {
+                        const payload = { key: user.key, login: user.login }
+                        const result = jwt.sign(payload);
+                        return res.send(result);
+                    })
+                    .catch(error => {
+                        res.status(500).json(error)
+                    });
             })
             .catch(err => {
                 res.status(500).send({ message: err.message });
@@ -54,7 +57,11 @@ module.exports = {
     },
 
     getAllUser(req, res) {
-        User.findAll()
+        User.findAll({
+            include: [{
+                all: true, nested: true
+            }]
+        })
             .then(User => {
                 res.status(200).json(User)
             })
@@ -65,7 +72,12 @@ module.exports = {
 
     getUserById(req, res) {
         const idUser = req.params.id;
-        User.findOne({ where: { id: idUser } })
+        User.findOne({
+            include: [{
+                all: true, nested: true
+            }],
+            where: { id: idUser }
+        })
             .then(User => {
                 res.status(200).json(User)
             })

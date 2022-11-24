@@ -13,7 +13,11 @@ module.exports = {
     },
 
     getAllVille(req, res) {
-        Ville.findAll()
+        Ville.findAll({
+            include: [{
+                all: true, nested: true
+            }]
+        })
             .then(Ville => {
                 res.status(200).json(Ville)
             })
@@ -24,7 +28,12 @@ module.exports = {
 
     getVilleById(req, res) {
         const idVille = req.params.id;
-        Ville.findOne({ where: { code_iso2: idVille } })
+        Ville.findOne({
+            include: [{
+                all: true, nested: true
+            }],
+            where: { code_iso2: idVille }
+        })
             .then(Ville => {
                 res.status(200).json(Ville)
             })

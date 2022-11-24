@@ -1,5 +1,7 @@
 const db = require("./../models");
 const SousAgence = db.sousAgence;
+const Agence = db.agence;
+const Ville = db.ville;
 module.exports = {
     createSousAgence(req, res) {
         SousAgence.create(req.body)
@@ -12,7 +14,11 @@ module.exports = {
     },
 
     getAllSousAgence(req, res) {
-        SousAgence.findAll()
+        SousAgence.findAll({
+            include: [{
+                all: true, nested: true
+            }]
+        })
             .then(SousAgence => {
                 res.status(200).json(SousAgence)
             })
@@ -23,7 +29,12 @@ module.exports = {
 
     getSousAgenceById(req, res) {
         const idSousAgence = req.params.id;
-        SousAgence.findOne({ where: { code: idSousAgence } })
+        SousAgence.findOne({
+            include: [{
+                model: Agence,
+            }],
+            where: { code: idSousAgence }
+        })
             .then(SousAgence => {
                 res.status(200).json(SousAgence)
             })
