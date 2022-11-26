@@ -52,6 +52,15 @@ module.exports = {
                 res.status(200).json({ status: 'success', message: 'Client supprimé' })
             })
             .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
+    },
+
+    verifClient(req, res) {
+        const tel = req.body.tel
+        Client.findOne({ where: { telephone: tel } })
+            .then(Client => {
+                res.status(200).json(Client)
+            })
+            .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
     }
 }
 
