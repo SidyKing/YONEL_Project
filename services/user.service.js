@@ -55,6 +55,20 @@ module.exports = {
                 res.status(500).json(error)
             });
     },
+    async modifPassword(req, res) {
+        const idUser = req.params.id;
+        const saltRounds = 10;
+        const datas = {
+            password: await bcrypt.hash(req.body.password, saltRounds)
+        }
+        User.update(datas, { where: { id: idUser } })
+            .then(User => {
+                res.status(201).json(User);
+            })
+            .catch(error => {
+                res.status(500).json(error)
+            });
+    },
 
     getAllUser(req, res) {
         User.findAll({
@@ -80,17 +94,6 @@ module.exports = {
         })
             .then(User => {
                 res.status(200).json(User)
-            })
-            .catch(error => {
-                res.status(500).json(error)
-            });
-    },
-
-    updateUser(req, res) {
-        const idUser = req.params.id;
-        User.update(req.body, { where: { id: idUser } })
-            .then(User => {
-                res.status(201).json(User);
             })
             .catch(error => {
                 res.status(500).json(error)

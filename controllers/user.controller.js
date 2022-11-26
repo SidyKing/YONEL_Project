@@ -8,6 +8,6 @@ routes.get('/', UserService.getAllUser);
 routes.get('/:id', UserService.getUserById);
 routes.post('/register', UserService.register);
 routes.delete('/:id', UserService.deleteUser);
-routes.put('/:id', UserService.updateUser);
+routes.put('/modifPassword/:id', UserService.modifPassword);
 
 module.exports = routes;
