@@ -26,7 +26,7 @@ module.exports = {
                 }
                 User.findOne({ where: { id: user.id } })
                     .then(user => {
-                        const payload = { key: user.key, login: user.login }
+                        const payload = { id: user.id, key: user.key, login: user.login }
                         const result = jwt.sign(payload);
                         return res.send(result);
                     })
