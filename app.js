@@ -7,6 +7,13 @@ const app = express();
 
 app.use(logger('dev'));
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+ })
+
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -52,7 +59,10 @@ db.sequelize.sync(/* { force: true } */)
         console.log("Echec lors de la synchronisation: " + err.message);
     });
 
-//app.use(cors(), function (req, res, next) { res.header("Access-Control-Allow-Origin", "http://localhost:4200") });
+app.use(cors(), function (req, res, next) {
+     res.header("Access-Control-Allow-Origin", "Origin, X-Requested-With, Content-Type, Accept",
+     "http://localhost:4200") 
+    });
 // mise à jour pour correspondre au domaine que vous fera la demande à partir de res.header ("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); next ();});
 
 

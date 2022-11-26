@@ -3,7 +3,7 @@ const routes = express.Router();
 
 const UserService = require("../services/user.service");
 
-routes.get('/login', UserService.login)
+routes.post('/login', UserService.login)
 routes.get('/', UserService.getAllUser);
 routes.get('/:id', UserService.getUserById);
 routes.post('/register', UserService.register);
