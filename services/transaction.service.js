@@ -3,11 +3,13 @@ const Transaction = db.transaction;
 module.exports = {
 
     createTransaction(req, res) {
+        console.log(req.body);
         Transaction.create(req.body)
             .then(Transaction => {
                 res.status(201).json(Transaction);
             })
             .catch(error => {
+                console.log(error)
                 res.status(500).json(error)
             });
     },
@@ -49,6 +51,7 @@ module.exports = {
                 res.status(201).json(Transaction);
             })
             .catch(error => {
+                console.log(error)
                 res.status(500).json(error)
             });
     },
