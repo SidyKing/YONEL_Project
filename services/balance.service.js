@@ -62,6 +62,14 @@ module.exports = {
                 res.status(200).json({ status: 'success', message: 'Balance supprimé' })
             })
             .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
+    },
+    verifAgence(req, res) {
+        const code = req.body.agenceCode
+        Balance.findOne({ where: { agenceCode: code } })
+            .then(Balance => {
+                res.status(200).json(Balance)
+            })
+            .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
     }
 
 }
