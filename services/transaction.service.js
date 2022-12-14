@@ -64,6 +64,14 @@ module.exports = {
             })
             .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
 
+    },
+    getTransactionByUserID(req, res) {
+        const userId = req.body.userId
+        Transaction.findOne({ where: { userId: userId } })
+            .then(Transaction => {
+                res.status(200).json(Transaction)
+            })
+            .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
     }
 }
 
