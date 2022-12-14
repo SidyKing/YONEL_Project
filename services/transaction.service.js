@@ -67,7 +67,11 @@ module.exports = {
     },
     getTransactionByUserID(req, res) {
         const userId = req.body.userId
-        Transaction.findOne({ where: { userId: userId } })
+        Transaction.findAll({ 
+            include: [{
+                all: true, nested: true
+            }],
+            where: { userId: userId } })
             .then(Transaction => {
                 res.status(200).json(Transaction)
             })
