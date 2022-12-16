@@ -70,6 +70,14 @@ module.exports = {
                 res.status(200).json(Balance)
             })
             .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
+    },
+    getBalanceByAgenceCode(req, res) {
+        const agenceCode = req.body.agenceCode
+        Balance.findOne({where: { agenceCode: agenceCode } })
+            .then(Balance => {
+                res.status(200).json(Balance)
+            })
+            .catch(err => { res.status(500).json({ status: 'error', message: JSON.stringify(err) }) });
     }
 
 }
